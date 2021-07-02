@@ -39,14 +39,12 @@ public class MoveAttraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(count);
         //アトラクションと目的地cubeの距離
         remDistance = Vector3.Distance(transform.position, targetCube.position);
-        Debug.Log(remDistance);
         if (remDistance < 0.01)  //remDistanceは0にならない
         {
             count++;
-            Debug.Log("Debug : count plus");
+            Debug.Log("Debug : count plus, Now is" + count);
             //最後まで進んだとき
             if (count == cube.Length - 1)  
             {
