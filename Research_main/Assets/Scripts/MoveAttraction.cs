@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class MoveAttraction : MonoBehaviour
 {
@@ -45,39 +46,30 @@ public class MoveAttraction : MonoBehaviour
         if (remDistance < 0.01)  //remDistanceは0にならない
         {
             count++;
+            Debug.Log("Debug : count plus");
             //最後まで進んだとき
             if (count == cube.Length - 1)  
             {
                 //end
                 Debug.Log("Debug : End");
             }
-            Debug.Log("Debug : count plus");
+            //通過点代入
+            Vector3[] path = { cube[count].transform.position, cube[count + 1].transform.position, cube[count + 2].transform.position};
             //開始時間更新
             startTime = Time.time;
-            //スタート位置更新
-            //startPos = this.gameObject.transform;
             //目的cubeの位置
             targetCube = cube[count].transform;
-            //次の2点間の距離
+            //移動
             distance = Vector3.Distance(transform.position, targetCube.position);
+            transform.DOLocalPath(path, 10, PathType.CatmullRom)
+                .SetEase(Ease.Linear)
+                .SetLookAt(0.01f, Vector3.forward)
+                .SetOptions(false, AxisConstraint.Y);
         }
-        //　位置をスムーズに動かす
-        var t = (Time.time - startTime) / duration;
-        var xPos = Mathf.SmoothStep(transform.position.x, targetCube.position.x, t);
-        var yPos = Mathf.SmoothStep(transform.position.y, targetCube.position.y, t);
-        var zPos = Mathf.SmoothStep(transform.position.z, targetCube.position.z, t);
-        transform.position = new Vector3(xPos, yPos, zPos);
-        //ansform.position = Vector3.SmoothDamp(transform.position, targetCube.position, ref moveVelocity, speed * Time.deltaTime, maxSpeed);
-
         //　カメラの角度をスムーズに動かす
         var xRotate = Mathf.SmoothDampAngle(transform.eulerAngles.x, targetCube.eulerAngles.x, ref xVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
         var yRotate = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetCube.eulerAngles.y, ref yVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
         var zRotate = Mathf.SmoothDampAngle(transform.eulerAngles.z, targetCube.eulerAngles.z, ref zVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
         transform.eulerAngles = new Vector3(xRotate, yRotate, zRotate);
-
-        //現在の位置
-        //present = ((Time.time - startTime) * speed) / distance;
-        //オブジェクト移動
-        //transform.position = Vector3.Lerp(startPos, cube[count].transform.position, present);
     }
 }
