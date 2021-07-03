@@ -88,6 +88,7 @@ public class MoveAttraction : MonoBehaviour
         var yPos = Mathf.SmoothStep(transform.position.y, targetCube.position.y, t);
         var zPos = Mathf.SmoothStep(transform.position.z, targetCube.position.z, t);
         transform.position = new Vector3(xPos, yPos, zPos);*/
+
         //　カメラの角度をスムーズに動かす
         var xRotate = Mathf.SmoothDampAngle(transform.eulerAngles.x, targetCube.eulerAngles.x, ref xVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
         var yRotate = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetCube.eulerAngles.y, ref yVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
