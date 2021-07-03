@@ -7,8 +7,9 @@ public class MoveAttraction : MonoBehaviour
 {
     [SerializeField] public GameObject[] cube;
     [SerializeField] private float maxSpeed;	 //　最高速度
-    [SerializeField] private float rotateSpeed;  // 回転速度
+    [SerializeField] private float rotateSpeed;  //　回転速度
     [SerializeField] private float duration;	 //　カメラの移動間隔
+    [SerializeField] private int allTime;        //　スタートからゴールまでの時間
 
     private int count = 0;       //カウント
     private float speed = 1.0f;  //スピード
@@ -59,9 +60,9 @@ public class MoveAttraction : MonoBehaviour
             targetCube = cube[count].transform;
             //移動
             distance = Vector3.Distance(transform.position, targetCube.position);
-            transform.DOLocalPath(path, 10, PathType.CatmullRom)
+            transform.DOLocalPath(path, allTime, PathType.CatmullRom)
                 .SetEase(Ease.Linear)
-                .SetLookAt(0.01f, Vector3.forward)
+                //.SetLookAt(1f, Vector3.forward)
                 .SetOptions(false, AxisConstraint.Y);
         }
         //　カメラの角度をスムーズに動かす
