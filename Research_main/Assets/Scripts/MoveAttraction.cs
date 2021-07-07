@@ -29,24 +29,32 @@ public class MoveAttraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //開始時間
         startTime = Time.time;
         //目的cubeの位置
         targetCube = cube[count].transform;
         //2点間の距離を代入
         distance = Vector3.Distance(transform.position, targetCube.position);
         Debug.Log("Debug : start");
-        Vector3[] path = { cube[count].transform.position, cube[count + 1].transform.position, cube[count + 2].transform.position };
+        //Vector3[] path = { cube[count].transform.position, cube[count + 1].transform.position, cube[count + 2].transform.position };
+        //ex
+        Vector3[] path = new Vector3[cube.Length];
+        for(int i = 0; i < cube.Length; i++)
+        {
+            path[i] = cube[i].transform.position;
+        }
         //移動
         transform.DOLocalPath(path, allTime, PathType.CatmullRom)
         .SetEase(Ease.Linear)
         //.SetLookAt(1f, Vector3.forward)
         .SetOptions(false, AxisConstraint.Y);
+        //回転
+        //transform.DOLocalRotate(new Vector3(120f, 0, 0), 2f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         //アトラクションと目的地cubeの距離
         remDistance = Vector3.Distance(transform.position, targetCube.position);
         //Debug
@@ -88,11 +96,11 @@ public class MoveAttraction : MonoBehaviour
         var yPos = Mathf.SmoothStep(transform.position.y, targetCube.position.y, t);
         var zPos = Mathf.SmoothStep(transform.position.z, targetCube.position.z, t);
         transform.position = new Vector3(xPos, yPos, zPos);*/
-
+        /*
         //　カメラの角度をスムーズに動かす
         var xRotate = Mathf.SmoothDampAngle(transform.eulerAngles.x, targetCube.eulerAngles.x, ref xVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
         var yRotate = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetCube.eulerAngles.y, ref yVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
         var zRotate = Mathf.SmoothDampAngle(transform.eulerAngles.z, targetCube.eulerAngles.z, ref zVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
-        transform.eulerAngles = new Vector3(xRotate, yRotate, zRotate);
+        transform.eulerAngles = new Vector3(xRotate, yRotate, zRotate);*/
     }
 }
