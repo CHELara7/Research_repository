@@ -6,101 +6,54 @@ using DG.Tweening;
 public class MoveAttraction : MonoBehaviour
 {
     [SerializeField] public GameObject[] cube;
-    [SerializeField] private float maxSpeed;	 //　最高速度
-    [SerializeField] private float rotateSpeed;  //　回転速度
-    [SerializeField] private float duration;	 //　カメラの移動間隔
-    [SerializeField] private float moveSpeed;	 //　カメラの移動間隔
     [SerializeField] private int allTime;        //　スタートからゴールまでの時間
 
-    private int count = 0;       //カウント
-    private float speed = 1.0f;  //スピード
-    private float distance;     //2点間の距離
+    private int count = 1;       //カウント
     private float remDistance;  //残りの2点間の距離
-    private float present;      //現在の位置
-    private Transform targetCube;  // 目的Cubeの位置
-    private float startTime;    //スタート時間
     private Vector3 moveVelocity;			//　現在の移動の速度
-    private float xVelocity;            //　現在の回転の速度
-    private float yVelocity;            //　現在の回転の速度
-    private float zVelocity;			//　現在の回転の速度
-
+    private Vector3[] targetPos;        //　ターゲットの位置ベクトル
+    private Vector3[] targetRot;        //　ターゲットの回転ベクトル
 
 
     // Start is called before the first frame update
     void Start()
     {
-        startTime = Time.time;
-        //目的cubeの位置
-        targetCube = cube[count].transform;
-        //2点間の距離を代入
-        distance = Vector3.Distance(transform.position, targetCube.position);
         Debug.Log("Debug : start");
-        //Vector3[] path = { cube[count].transform.position, cube[count + 1].transform.position, cube[count + 2].transform.position };
-        //ex
-        Vector3[] path = new Vector3[cube.Length];
-        for(int i = 0; i < cube.Length; i++)
+        //　ターゲットの位置ベクトル
+        targetPos = new Vector3[cube.Length];
+        //　ターゲットの回転ベクトル
+        targetRot = new Vector3[cube.Length];
+        //　ターゲット情報を格納
+        for (int i = 0; i < cube.Length; i++)
         {
-            path[i] = cube[i].transform.position;
+            targetPos[i] = cube[i].transform.position;
+            targetRot[i] = cube[i].transform.localEulerAngles;
         }
-        //移動
-        transform.DOLocalPath(path, allTime, PathType.CatmullRom)
-        .SetEase(Ease.Linear)
-        //.SetLookAt(1f, Vector3.forward)
-        .SetOptions(false, AxisConstraint.Y);
-        //回転
-        //transform.DOLocalRotate(new Vector3(120f, 0, 0), 2f);
+        Debug.Log(targetRot[count]);
+        //　移動
+        transform.DOLocalPath(targetPos, allTime, PathType.CatmullRom)
+        .SetEase(Ease.Linear);     //なめらかに
+        //　回転
+        transform.DOLocalRotate(targetRot[count], 2f)
+        .SetEase(Ease.Linear);     //なめらかに
+        //.OnComplete(MyCompleteFunction);     //終了時
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        //アトラクションと目的地cubeの距離
-        remDistance = Vector3.Distance(transform.position, targetCube.position);
-        //Debug
+        //　スクーターと目的地cubeの距離
+        remDistance = Vector3.Distance(transform.position, cube[count].transform.position);
         //Debug.Log(remDistance);
+        //　距離が0.2より小さくなったとき
         if (remDistance < 0.2)  //remDistanceは0にならない
         {
             count++;
             Debug.Log("Debug : count plus, Now is " + count);
-            //最後まで進んだとき
-            if (count == cube.Length - 1)  
-            {
-                //end
-                Debug.Log("Debug : End");
-            }
-            //通過点代入
-            //Vector3[] path = { cube[count].transform.position, cube[count + 1].transform.position, cube[count + 2].transform.position};
-            //開始時間更新
-            startTime = Time.time;
-            //目的cubeの位置
-            targetCube = cube[count].transform;
-            //距離
-            distance = Vector3.Distance(transform.position, targetCube.position);
-            Vector3[] path = { cube[count].transform.position, cube[count + 1].transform.position, cube[count + 2].transform.position };
-            //移動
-            if(count % 2 == 0)
-            {
-                transform.DOLocalPath(path, allTime, PathType.CatmullRom)
-                .SetEase(Ease.Linear)
-                //.SetLookAt(1f, Vector3.forward)
-                .SetOptions(false, AxisConstraint.Y);
-            }
+            //　回転
+            transform.DOLocalRotate(targetRot[count], 2f)
+            .SetEase(Ease.Linear)     //　なめらかに
+            .SetDelay(0.1f);   //　遅らせる
         }
-        
-        //　位置をスムーズに動かす
-        //transform.position = Vector3.SmoothDamp (transform.position, targetCube.position, ref moveVelocity, moveSpeed * Time.deltaTime, maxSpeed);
-        //　位置をスムーズに動かすSmoothStep版
-        /*var t = (Time.time - startTime) / duration;
-        var xPos = Mathf.SmoothStep(transform.position.x, targetCube.position.x, t);
-        var yPos = Mathf.SmoothStep(transform.position.y, targetCube.position.y, t);
-        var zPos = Mathf.SmoothStep(transform.position.z, targetCube.position.z, t);
-        transform.position = new Vector3(xPos, yPos, zPos);*/
-        /*
-        //　カメラの角度をスムーズに動かす
-        var xRotate = Mathf.SmoothDampAngle(transform.eulerAngles.x, targetCube.eulerAngles.x, ref xVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
-        var yRotate = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetCube.eulerAngles.y, ref yVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
-        var zRotate = Mathf.SmoothDampAngle(transform.eulerAngles.z, targetCube.eulerAngles.z, ref zVelocity, rotateSpeed * Time.deltaTime, maxSpeed);
-        transform.eulerAngles = new Vector3(xRotate, yRotate, zRotate);*/
     }
 }
