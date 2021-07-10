@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class MoveAttraction : MonoBehaviour
+public class MoveScooter : MonoBehaviour
 {
     [SerializeField] public GameObject[] cube;
     [SerializeField] private int allTime;        //　スタートからゴールまでの時間
@@ -51,9 +51,11 @@ public class MoveAttraction : MonoBehaviour
             count++;
             Debug.Log("Debug : count plus, Now is " + count);
             //　回転
-            transform.DOLocalRotate(targetRot[count], 2f)
-            .SetEase(Ease.Linear)     //　なめらかに
-            .SetDelay(0.1f);   //　遅らせる
+            transform.DOLocalRotate(targetRot[count], 3f)
+            //.SetEase(Ease.InOutSine);     //　なめらかに
+            //.SetEase(Ease.Linear);
+            .SetEase(Ease.OutCubic);
+            //.SetDelay(0.1f);   //　遅らせる
         }
     }
 }
