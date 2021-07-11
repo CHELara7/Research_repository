@@ -52,9 +52,9 @@ public class MoveScooter : MonoBehaviour
             Debug.Log("Debug : count plus, Now is " + count);
             //　回転
             transform.DOLocalRotate(targetRot[count], 3f)
-            //.SetEase(Ease.InOutSine);     //　なめらかに
+            .SetEase(Ease.InOutSine);     //　なめらかに
             //.SetEase(Ease.Linear);
-            .SetEase(Ease.OutCubic);
+            //.SetEase(Ease.OutCubic);
             //.SetDelay(0.1f);   //　遅らせる
         }
     }
