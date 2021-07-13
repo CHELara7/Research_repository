@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class Scooter : MonoBehaviour
 {
@@ -43,7 +44,12 @@ public class Scooter : MonoBehaviour
             countDown.endCount = false;
             //　移動
             transform.DOLocalPath(targetPos, allTime, PathType.CatmullRom)
-            .SetEase(Ease.Linear);     //なめらかに
+            .SetEase(Ease.Linear)     //なめらかに
+            .OnComplete(() =>
+            {              //　終了時
+                SceneManager.LoadScene("Home");
+            });
+
             //　回転
             transform.DOLocalRotate(targetRot[count], 2f)
             .SetEase(Ease.InOutSine);     //なめらかに
@@ -60,8 +66,7 @@ public class Scooter : MonoBehaviour
             Debug.Log("Debug : count plus, Now is " + count);
             //　回転
             transform.DOLocalRotate(targetRot[count], 3f)
-            .SetEase(Ease.InOutSine);     //　なめらかに
-            //.OnComplete(MyCompleteFunction);     //終了時
+            .SetEase(Ease.InOutSine);        //　なめらかに
         }
     }
 }
