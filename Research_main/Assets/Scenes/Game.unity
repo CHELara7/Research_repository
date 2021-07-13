@@ -14651,22 +14651,22 @@ PrefabInstance:
     - target: {fileID: 817691091575356767, guid: 8feab831b19068b4783db0783483dc14,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.10327262
+      value: 0.09939497
       objectReference: {fileID: 0}
     - target: {fileID: 817691091575356767, guid: 8feab831b19068b4783db0783483dc14,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6301887
+      value: 0.6308101
       objectReference: {fileID: 0}
     - target: {fileID: 817691091575356767, guid: 8feab831b19068b4783db0783483dc14,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11426893
+      value: 0.10958863
       objectReference: {fileID: 0}
     - target: {fileID: 817691091575356767, guid: 8feab831b19068b4783db0783483dc14,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7610122
+      value: 0.7617018
       objectReference: {fileID: 0}
     - target: {fileID: 817691091575356767, guid: 8feab831b19068b4783db0783483dc14,
         type: 3}
@@ -14686,7 +14686,7 @@ PrefabInstance:
     - target: {fileID: 817691091575356767, guid: 8feab831b19068b4783db0783483dc14,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 17.705
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 817691091575356767, guid: 8feab831b19068b4783db0783483dc14,
         type: 3}
@@ -20730,7 +20730,7 @@ MonoBehaviour:
   - {fileID: 1676589153}
   - {fileID: 595707969}
   - {fileID: 1010695438}
-  allTime: 45
+  allTime: 30
 --- !u!1001 &2034651459
 PrefabInstance:
   m_ObjectHideFlags: 0
