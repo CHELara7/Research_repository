@@ -14,7 +14,11 @@ public class SceneManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Bボタンを押したらスタート
+        if (OVRInput.GetDown(OVRInput.Button.Two))
+        {
+            SceneManager.LoadScene("Game");
+        }
     }
 
     public void Game()
