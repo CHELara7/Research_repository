@@ -42,17 +42,20 @@ public class Scooter : MonoBehaviour
         {
             // ストップ
             countDown.endCount = false;
-            //　移動
-            transform.DOLocalPath(targetPos, allTime, PathType.CatmullRom)
-            .SetEase(Ease.Linear)     //なめらかに
-            .OnComplete(() =>
-            {              //　終了時
-                SceneManager.LoadScene("Home");
-            });
 
             //　回転
             transform.DOLocalRotate(targetRot[count], 2f)
             .SetEase(Ease.InOutSine);     //なめらかに
+
+            //　移動
+            transform.DOLocalPath(targetPos, allTime, PathType.CatmullRom)
+            .SetEase(Ease.Linear)     //なめらかに
+            .OnComplete(() => //　終了時
+            {
+                SceneManager.LoadScene("Home");
+            });
+
+            
         }
 
         //　スクーターと目的地cubeの距離
