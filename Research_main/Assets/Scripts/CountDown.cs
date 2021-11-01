@@ -49,7 +49,7 @@ public class CountDown : MonoBehaviour
         countdownText.enabled = false;
 
         //　ゲーム開始
-        Bgm.SetActive(true);
+        //Bgm.SetActive(true);
         endCount = true;
     }
 }
