@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class Scooter : MonoBehaviour
 {
@@ -41,12 +42,20 @@ public class Scooter : MonoBehaviour
         {
             // ストップ
             countDown.endCount = false;
-            //　移動
-            transform.DOLocalPath(targetPos, allTime, PathType.CatmullRom)
-            .SetEase(Ease.Linear);     //なめらかに
+
             //　回転
             transform.DOLocalRotate(targetRot[count], 2f)
             .SetEase(Ease.InOutSine);     //なめらかに
+
+            //　移動
+            transform.DOLocalPath(targetPos, allTime, PathType.CatmullRom)
+            .SetEase(Ease.Linear)     //なめらかに
+            .OnComplete(() => //　終了時
+            {
+                SceneManager.LoadScene("Home");
+            });
+
+            
         }
 
         //　スクーターと目的地cubeの距離
@@ -60,8 +69,7 @@ public class Scooter : MonoBehaviour
             Debug.Log("Debug : count plus, Now is " + count);
             //　回転
             transform.DOLocalRotate(targetRot[count], 3f)
-            .SetEase(Ease.InOutSine);     //　なめらかに
-            //.OnComplete(MyCompleteFunction);     //終了時
+            .SetEase(Ease.InOutSine);        //　なめらかに
         }
     }
 }
