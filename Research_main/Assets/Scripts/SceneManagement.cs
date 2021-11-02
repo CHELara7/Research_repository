@@ -17,7 +17,7 @@ public class SceneManagement : MonoBehaviour
         // Bボタンを押したらスタート
         if (OVRInput.GetDown(OVRInput.Button.Two))
         {
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene("GameDestroyCity");
         }
     }
 
